@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adivina el Número</title>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Black+Han+Sans&display=swap" rel="stylesheet"/>
+<body>
+
+<div class="card">
+  <div class="titulo">Adivina</div>
+  <div class="titulo-sub">el Número</div>
+  <div class="subtitulo">del 1 al 100 — 7 intentos</div>
+  <hr class="divider"/>
+
+  <div class="mensaje-pista" id="mensaje" style="color:#e8c84a;">
+    🎯 ¡Adivina el número!
+  </div>
+
+  <div class="barra-intentos" id="barra"></div>
+
+  <div class="subtitulo" id="contador">0 / 7 intentos usados</div>
+
+  <div class="input-wrap" id="inputWrap">
+    <input
+      class="num-input"
+      type="number"
+      id="inputNum"
+      min="1" max="100"
+      placeholder="?"
+      autofocus
+    />
+    <button class="btn" id="btnOk" onclick="adivinar()">OK</button>
+  </div>
+
+  <div class="resultado-banner" id="banner"></div>
+
+  <button class="btn-secondary" onclick="reiniciar()">↩ Nuevo juego</button>
+
+  <div id="historialSection" style="display:none;">
+    <hr class="divider" style="margin-top:20px;"/>
+    <div class="subtitulo">Historial</div>
+    <div class="historial" id="historial"></div>
+  </div>
+</div>
