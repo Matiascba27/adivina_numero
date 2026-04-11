@@ -1,30 +1,72 @@
 import random
-numero_secreto = random.randint(1, 100)
-intentos = 0
-fin_intentos = 12
-print("Adivina el numero del 1 al 100")
-print("Tienes 12 intentos")
 
-while intentos < fin_intentos:
-    try:
-        numero = int(input("-> Numero: "))
-        if numero < 1 or numero > 100:
-            print("El numero no puede ser menor a 0 ni mayor a 100")
-            continue
-        if numero < numero_secreto:
-                intentos += 1
-                if intentos < 12:
-                    print("El numero es mayor")
+def crear_juego():
+    """Genera un nuevo juego y devuelve el estado inicial."""
+    
+    return {
+        'numero_secreto' : random.randint(1, 100),
+        'intentos' : 0,
+        'max_intentos' : 12,
+        'terminado' : False
+    }
+    
+
+def adivinar(numero, estado):
+    """
+
+    Recibe el número del usuario y el estado actual.
+
+    Devuelve (resultado_dict, estado_actualizado).
+
+    """
+    
+    resultado = {
+        'pista' : '',
+        'mensaje' : '',
+        'terminado' : False,
+        'gano' : False
+    }
+    
+    if numero < 1 or numero > 100:
+        
+        resultado['pista'] = 'invalido'
+        
+        resultado['mensaje'] = 'El numero debe estar entre 1 y 100'
+        
+        return resultado, estado
+        
+    estado['intentos'] += 1
+    if numero < estado['numero_secreto']:
+        resultado['pista'] = 'bajo'
+        
+        resultado['mensaje'] = '🔺 El número es mayor'
                     
-        elif numero > numero_secreto:
-                intentos += 1
-                if intentos < 12:
-                    print("El numero es menor")
+    elif numero > estado['numero_secreto']:
+        
+        resultado['pista'] = 'alto'
+        
+        resultado['mensaje'] = '🔻 El número es menor'
             
-        elif numero == numero_secreto:
-            print(f"Correcto!!! adivinaste el numero secreto. \nTus intentos fueron: {intentos}")
-            break
-    except Exception:
-        print("Error!!! Introduce un Numero entero")
-else:
-    print(f"Te has quedado sin intentos. \nSuerte para la proxima")
+    elif numero == estado['numero_secreto']:
+        
+        resultado['pista'] = 'correcto'
+        
+        resultado['mensaje'] = f'🎉 ¡Correcto! Lo adivinaste en {estado["intentos"]} intentos'
+        
+        resultado['gano'] = True
+        
+        resultado['terminado'] = True
+        
+        estado['terminado'] = True
+        
+    if estado['intentos'] >= estado['max_intentos'] and not resultado['gano']:
+        
+        resultado['pista'] = 'perdiste'
+        
+        resultado['mensaje'] = f'💀 Sin intentos. El número era {estado["numero_secreto"]}'
+        
+        resultado['terminado'] = True
+        
+        estado['terminado'] = True
+        
+    return resultado, estado
