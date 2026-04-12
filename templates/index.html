@@ -22,18 +22,20 @@
 
   <div class="subtitulo" id="contador">0 / 7 intentos usados</div>
 
-  <div class="input-wrap" id="inputWrap">
-    <input
-      class="num-input"
-      type="number"
-      id="inputNum"
-      min="1" max="100"
-      placeholder="?"
-      autofocus
-    />
-    <button class="btn" id="btnOk" onclick="adivinar()">OK</button>
-  </div>
-
+  {{ resultado|safe }}
+  <form action="/adivinar" method="post">
+    <div class="input-wrap" id="inputWrap">
+      <input
+        class="num-input"
+        type="number"
+        name="numero"
+        min="1" max="100"
+        placeholder="?"
+        autofocus
+      />
+      <button class="btn" type="submit">OK</button>
+    </div>
+  </form>
   <div class="resultado-banner" id="banner"></div>
 
   <button class="btn-secondary" onclick="reiniciar()">↩ Nuevo juego</button>
